@@ -1,0 +1,8 @@
+.chart-container {
+    display: flex;
+    /* flex-direction: column; */
+    flex: 1;
+    margin: 0;
+    height: 100%;
+}
+  

@@ -1,0 +1,75 @@
+version: "1.0"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: python-inferencing-server
+    env_file:
+      - .env
+    networks:
+      - app-tier
+    ports:
+      - "8000:8000"
+      - "7497:7497"
+    expose:
+      - "7497"
+    volumes:
+      - ./backend:/app/
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    restart: always
+    # depends_on:
+    #   - ib-gateway
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: test-ui-local-image
+    volumes:
+      - ./frontend:/app/
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - app-tier
+    restart: always
+    command: npm run start
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-tier
+
+networks:
+  app-tier:
+    driver: bridge
+
+# BELOW COMMENTED OUT SERVICES ARE WIP - NOT 100% NECESSARY UNTIL MVP IS OPERATIONAL
+  # ib-gateway:
+  #   image: waytrade/ib-gateway:981.3j
+  #   restart: always
+  #   environment:
+  #     TWS_USERID: ${TWS_USERID}
+  #     TWS_PASSWORD: ${TWS_PASSWORD}
+  #     TRADING_MODE: ${TRADING_MODE:-live}
+  #     VNC_SERVER_PASSWORD: ${VNC_SERVER_PASSWORD:-}
+  #   networks:
+  #     - app-tier
+  #   expose:
+  #     - "4000"
+  #     - "4001"
+  #     - "4002"
+  #     - "5090"
+  #   ports:
+  #     # - "127.0.0.1:4001:4001"
+  #     # - "127.0.0.1:4002:4002"
+  #     # - "127.0.0.1:5900:5900"
+  #     - "4000:4000"
+  #     - "4001:4001"
+  #     - "4002:4002"
+

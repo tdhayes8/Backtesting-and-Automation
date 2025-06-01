@@ -1,0 +1,4 @@
+backend/path/
+backend/site-packages-altered-backup/
+.venv
+.parcel-cache
