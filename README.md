@@ -14,3 +14,5 @@ Docker Desktop - https://www.docker.com/products/docker-desktop/
 ```
 docker compose up --build
 ```
+
+Various API endpoints exist in the frontend and backend sections of the app for web based execution of backtesting, live trading and charting.
