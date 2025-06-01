@@ -5,6 +5,7 @@ Backtesting data needs to be imported. Examples found in backend/backtesting_dat
 
 Barchart and other sources can be used to get extensive data between 2010 and 2025 for free or a small cost.
 
+Currently missing our proprietary algorithms, and will need a sample one created, and import statements throughout the application to be updated.
 
 # Requirements
 Docker Desktop - https://www.docker.com/products/docker-desktop/
